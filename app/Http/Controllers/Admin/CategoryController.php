@@ -113,9 +113,12 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request)
-    {
+    {        
         try {
-            Category::findOrFail($request->id)->delete();
+            $cat = Category::findOrFail($request->id);
+            $file_path = public_path()."/images/categories/".$cat->image;
+            \File::delete($file_path);
+            $cat->delete();
             $notification = "El registro se eliminó correctamente";
         } catch (QueryException $exception){
             $notification = "Error al eliminar el registro".$exception->getMessage();

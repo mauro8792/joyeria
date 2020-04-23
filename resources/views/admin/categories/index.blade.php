@@ -45,6 +45,15 @@
                                         <a href="{{ url('/admin/categories/'.$category->id.'/edit') }}" class="btn btn-outline-dark btn-sm" type="button" title="Editar Categoría"><i class="fa fa-edit t-blue"></i></a>
                                         <button class="btn btn-outline-dark btn-sm" type="button" title="Eliminar {{ $category->name }}" data-toggle="modal" data-target="#modalDeleteCategory{{$category->id}}"><i class="fa fa-times t-red"></i></button>
                                     </td>
+                                    <td>
+                                        <form method="POST" action="{{ url('/admin/categories') }}">
+                                            {{ csrf_field() }}
+                                            {{ method_field('DELETE') }}
+                                            <input type="hidden" name="id" value="{{ $category->id }}">
+                                            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
+                                            <button class="btn btn-outline-danger" type="submit" title="Eliminar {{ $category->name }}"><i class="fa fa-times"></i> Eliminar</button>
+                                        </form>
+                                    </td>
                                 </tr>
 
                                 <!-- Modal Delete Category -->
@@ -78,7 +87,7 @@
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <form method="post" action="{{ url('/admin/categories') }}">
+                                                <form method="POST" action="{{ url('/admin/categories') }}">
                                                     {{ csrf_field() }}
                                                     {{ method_field('DELETE') }}
                                                     <input type="hidden" name="id" value="{{ $category->id }}">
