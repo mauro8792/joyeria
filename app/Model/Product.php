@@ -35,4 +35,8 @@ class Product extends Model
             return $this->category->name;
         return 'General';
     }
+    public function languages(){
+        return $this->belongsToMany('App\Language')
+        ->withPivot('name','long_description','description');
+    }
 }

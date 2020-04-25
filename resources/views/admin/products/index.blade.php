@@ -35,8 +35,12 @@
                             <tbody>
                                 @foreach ($products as $product)
                                 <tr>
-                                    <td class="text-left">{{ $product->name }}</td>
-                                    <td class="text-left">{{ $product->description }}</td>
+                                    @php
+                                        //dd($product->languages[0]->pivot->name);
+                                        
+                                    @endphp
+                                    <td class="text-left">{{ $product->languages[0]->pivot->name }}</td>
+                                    <td class="text-left">{{ $product->languages[0]->pivot->description  }}</td>
                                     <td class="text-left">{{ $product->category_name }}</td>
                                     <td class="text-left">{{ $product->status }}</td>
                                     <td class="text-right">@if($product->price>0)$@endif {{ $product->price }}</td>

@@ -18,7 +18,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-    	$products = Product::paginate(10);
+        $products = Product::paginate(10);
+        //dd($products);
     	return view('admin.products.index')->with(compact('products')); // listado
     }
     
@@ -60,13 +61,17 @@ class ProductController extends Controller
 
     	// registrar el nuevo producto en la bd
         $product = new Product();
-        $product->name = $request->input('name');
-        $product->description = $request->input('description');
         $product->price = $request->input('price');
         $product->status = $request->input('status');
-        $product->long_description = $request->input('long_description');
         $product->category_id = $request->category_id == 0 ? null : $request->category_id;
         $product->save(); // INSERT
+        $product->languages()->attach(1,['name'=>$request->input('name'),
+                                        'long_description'=>$request->input('long_description'),
+                                        'description'=>$request->input('description')], $product->id);
+        //$product->name = $request->input('name');
+        //$product->description = $request->input('description');
+        //$product->long_description = $request->input('long_description');
+        
 
         return redirect('/admin/products');
     }
